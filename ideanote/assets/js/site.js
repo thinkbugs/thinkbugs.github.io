@@ -110,17 +110,28 @@
   var sections = navLinks.map(function (a) {
     return document.querySelector(a.getAttribute('href'));
   }).filter(Boolean);
-  if ('IntersectionObserver' in window && sections.length) {
-    var navIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var id = '#' + entry.target.id;
-        navLinks.forEach(function (a) {
-          a.classList.toggle('active', a.getAttribute('href') === id);
-        });
-      });
-    }, { rootMargin: '-42% 0px -52% 0px' });
-    sections.forEach(function (s) { navIO.observe(s); });
+  var navTick = false;
+  function updateNav() {
+    var marker = window.innerHeight * 0.45;
+    var current = '';
+    sections.forEach(function (s) {
+      var r = s.getBoundingClientRect();
+      if (r.top <= marker && r.bottom > marker) current = '#' + s.id;
+    });
+    navLinks.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === current);
+    });
+    navTick = false;
+  }
+  if (sections.length) {
+    window.addEventListener('scroll', function () {
+      if (!navTick) {
+        navTick = true;
+        requestAnimationFrame(updateNav);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateNav);
+    updateNav();
   }
 
   /* horizontal gallery */
