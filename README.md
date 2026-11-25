@@ -1,8 +1,8 @@
-# pianfan.github.io
+# thinkbugs.github.io
 
-翩帆的个人技术博客，基于 [Jekyll](https://jekyllrb.com/) 构建，托管在 GitHub Pages。
+thinkbugs技术博客，基于 [Jekyll](https://jekyllrb.com/) 构建，托管在 GitHub Pages。
 
-在线访问：<https://pianfan.github.io>
+在线访问：<https://thinkbugs.github.io>
 
 ## 功能特性
 
