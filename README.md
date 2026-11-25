@@ -3,7 +3,7 @@
 Official product site for **CallMind — AI 电销智能体** for every sales team, published with GitHub Pages.
 
 - Production: https://thinkbugs.github.io/
-- Positioning: all-industry AI outbound agent (education, real estate, beauty, home improvement, auto, B2B), configurable per customer
+- Positioning: all-industry AI outbound agent with a bundled professional CRM (education, real estate, beauty, home improvement, auto, B2B); existing CRM can connect via API/custom fields
 - Stack: static HTML / CSS / vanilla JS (no build step)
 - Pages: `index.html`, `privacy.html`, `404.html`
 
