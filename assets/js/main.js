@@ -70,11 +70,55 @@
     });
   });
 
+  const indTabs = $$('.ind-tab');
+  const indPanels = $$('[data-ind-panel]');
+  const activateInd = (key, focus = false) => {
+    indTabs.forEach((tab) => {
+      const on = tab.dataset.ind === key;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+      if (on && focus) tab.focus();
+    });
+    indPanels.forEach((panel) => {
+      const on = panel.dataset.indPanel === key;
+      panel.classList.toggle('is-active', on);
+      panel.hidden = !on;
+    });
+  };
+  indTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      activateInd(tab.dataset.ind);
+      if (window.matchMedia('(max-width: 900px)').matches) {
+        const panelBox = document.querySelector('.industry-panels');
+        if (panelBox) {
+          const rect = panelBox.getBoundingClientRect();
+          if (rect.top > window.innerHeight * 0.7) {
+            panelBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+    });
+    tab.addEventListener('keydown', (e) => {
+      const idx = indTabs.indexOf(tab);
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const next = indTabs[(idx + (e.key === 'ArrowRight' ? 1 : indTabs.length - 1)) % indTabs.length];
+      activateInd(next.dataset.ind, true);
+    });
+  });
+
   const modal = $('#demoModal');
   const template = $('#demoTemplate');
+  const demoBase = template ? template.textContent.trim() : '';
   let lastFocus = null;
-  const openModal = () => {
+  const openModal = (industry) => {
     if (!modal) return;
+    if (template && demoBase) {
+      template.textContent = industry
+        ? demoBase.replace('所属行业是 ___', '所属行业是 ' + industry)
+        : demoBase;
+    }
     lastFocus = document.activeElement;
     modal.hidden = false;
     modal.classList.add('is-open');
@@ -89,7 +133,7 @@
     document.body.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   };
-  $$('[data-open-demo]').forEach((btn) => btn.addEventListener('click', openModal));
+  $$('[data-open-demo]').forEach((btn) => btn.addEventListener('click', () => openModal(btn.dataset.industry)));
   $$('[data-close-demo]').forEach((btn) => btn.addEventListener('click', closeModal));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
