@@ -1,96 +1,449 @@
----
-layout: default
----
-<div class="search-container">
-  <input type="search" id="search-input" placeholder="搜索文章…" aria-label="搜索文章" enterkeyhint="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-  <ul id="results-container"></ul>
-</div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CallMind · 让每一通电话，都像顶尖顾问在打</title>
+  <meta name="description" content="CallMind 是面向教育销售团队的 AI 电话智能体：实时对话、需求洞察、试听邀约、CRM 写回与通话后复盘，一位始终在线的数字课程顾问。" />
+  <meta name="theme-color" content="#F6F8FC" />
+  <link rel="canonical" href="https://thinkbugs.github.io/" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CallMind" />
+  <meta property="og:title" content="CallMind · 让每一通电话，都像顶尖顾问在打" />
+  <meta property="og:description" content="AI 电话智能体：实时对话、需求洞察、CRM 写回、通话后复盘与专属音色。" />
+  <meta property="og:url" content="https://thinkbugs.github.io/" />
+  <meta property="og:image" content="https://thinkbugs.github.io/assets/img/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CallMind",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Android",
+    "url": "https://thinkbugs.github.io/",
+    "description": "面向教育销售团队的 AI 电话智能体：实时对话、需求洞察、CRM 写回与通话后复盘。",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY", "description": "企业租户演示申请" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到主要内容</a>
 
-<script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
-
-<script>
-  (function () {
-    var input = document.getElementById('search-input');
-    var results = document.getElementById('results-container');
-
-    var sjs = new SimpleJekyllSearch({
-      searchInput: input,
-      resultsContainer: results,
-      json: '{{ site.baseurl }}/search.json',
-      searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
-      noResultsText: '未找到相关文章',
-      limit: 10,
-      fuzzy: false
-    });
-
-    function runSearch() {
-      results.innerHTML = '';
-      var q = input.value;
-      if (q && q.length) {
-        sjs.search(q);
-      }
-    }
-
-    input.addEventListener('search', runSearch);
-    input.addEventListener('compositionend', runSearch);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        runSearch();
-      }
-    });
-  })();
-</script>
-
-{% if site.posts.size == 0 %}
-  <h2>No post found</h2>
-{% endif %}
-
-<div class="posts">
-  {% for post in paginator.posts %}
-    <article class="post">
-      <h1>
-        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-      </h1>
-
-      <div class="meta">
-        <span class="date">
-          {{ post.date | date: "%Y-%m-%d" }}
-        </span>
-
-        <ul class="tag">
-          {% for tag in post.tags %}
-          <li>
-            <a href="{{ site.baseurl }}/tags#{{ tag }}">
-              {{ tag }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="entry">
-        {{ post.excerpt | strip_html | truncate: 200 }}
-      </div>
-
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">阅读全文</a>
-    </article>
-  {% endfor %}
-</div>
-
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <span class="prev">
-      <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">
-        ← 上一页
+  <header class="site-header" id="header">
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="CallMind 首页">
+        <img src="assets/img/logo.png" alt="" class="brand-mark" />
+        <span class="brand-text"><b>CallMind</b><small>AI 电话智能体</small></span>
       </a>
-    </span>
-  {% endif %}
-  {% if paginator.next_page %}
-    <span class="next">
-      <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next">
-        下一页 →
-      </a>
-    </span>
-  {% endif %}
-</div>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#capabilities">产品能力</a>
+        <a href="#how">工作方式</a>
+        <a href="#product">产品界面</a>
+        <a href="#voice">专属音色</a>
+        <a href="#security">安全合规</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost nav-login" href="privacy.html">数据与隐私</a>
+        <button class="btn btn-primary" data-open-demo>预约演示</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="打开菜单" aria-expanded="false"><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#capabilities">产品能力</a>
+      <a href="#how">工作方式</a>
+      <a href="#product">产品界面</a>
+      <a href="#voice">专属音色</a>
+      <a href="#security">安全合规</a>
+      <a href="privacy.html">数据与隐私</a>
+      <button class="btn btn-primary" data-open-demo>预约演示</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-mesh" aria-hidden="true"><i class="orb orb-a"></i><i class="orb orb-b"></i><i class="orb orb-c"></i><div class="grid"></div></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal><span class="pulse"></span> AI VOICE AGENT · FOR EDUCATION SALES</p>
+          <h1 data-reveal>让每一通电话，<br /><span class="grad">都像顶尖顾问在打。</span></h1>
+          <p class="lede" data-reveal>CallMind 把实时对话、需求洞察、试听邀约、CRM 跟进与通话复盘，交给一位始终在线、始终专业的 AI 课程顾问。</p>
+          <div class="hero-actions" data-reveal>
+            <a class="btn btn-primary btn-lg" href="#capabilities">查看产品能力</a>
+            <a class="btn btn-soft btn-lg" href="#product">看一次真实通话</a>
+          </div>
+          <ul class="hero-facts" data-reveal>
+            <li><span>实时语音</span>ASR · LLM · TTS</li>
+            <li><span>七态对话</span>不背话术</li>
+            <li><span>CRM 原生</span>跟进自动写回</li>
+            <li><span>专属音色</span>30 秒复刻</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <div class="halo" aria-hidden="true"></div>
+          <div class="phone phone-live" aria-label="CallMind 实时通话界面示意">
+            <div class="phone-frame"></div>
+            <div class="phone-screen">
+              <div class="statusline"><span>9:41</span><span class="status-icons">●●●</span></div>
+              <div class="app-head">
+                <span class="live-pill"><i></i>AI 实时</span>
+                <span class="stage-pill">S3 · 价值传递</span>
+              </div>
+              <div class="app-person">
+                <div class="avatar">李</div>
+                <div><b>李女士</b><small>初二 · 英语 · 阅读薄弱</small></div>
+                <span class="timer">02:18</span>
+              </div>
+              <div class="wave" aria-hidden="true">
+                <span style="--h:28%"></span><span style="--h:58%"></span><span style="--h:82%"></span><span style="--h:44%"></span><span style="--h:68%"></span><span style="--h:92%"></span><span style="--h:52%"></span><span style="--h:74%"></span><span style="--h:36%"></span><span style="--h:88%"></span><span style="--h:64%"></span><span style="--h:42%"></span><span style="--h:78%"></span><span style="--h:54%"></span><span style="--h:96%"></span><span style="--h:60%"></span><span style="--h:34%"></span><span style="--h:70%"></span><span style="--h:48%"></span><span style="--h:80%"></span>
+              </div>
+              <div class="chat">
+                <div class="bubble bubble-ai">孩子阅读题主要卡在长难句，还是做题时容易漏信息？</div>
+                <div class="bubble bubble-parent">做题容易漏信息，尤其完形填空。</div>
+                <div class="typing"><span></span><span></span><span></span> AI 正在回应</div>
+              </div>
+              <div class="mini-tags"><span>年级 初二</span><span>薄弱 阅读</span><span>时间 周末</span></div>
+            </div>
+          </div>
+          <div class="float-card float-crm"><span class="float-ico">✓</span><div><b>CRM 已同步</b><small>跟进 · 意向 · 下次时间</small></div></div>
+          <div class="float-card float-plan"><div class="float-k">下次通话策略</div><b>周六 10:00 · 阅读测评</b><small>先价值，再锁时段</small></div>
+          <div class="float-bubble"><img src="assets/img/logo.png" alt="" /><span>AI 通话中</span></div>
+        </div>
+      </div>
+      <div class="shell hero-bottom">
+        <span>专为教育试听邀约设计</span>
+        <span class="sep"></span>
+        <span>AI 身份与录音告知</span>
+        <span class="sep"></span>
+        <span>单路串行 · 合规前置</span>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div class="shell">
+        <p class="eyebrow" data-reveal>THE DIFFERENCE</p>
+        <div class="intro-grid">
+          <h2 data-reveal>不是语音机器人，<br />是能独立完成一次<br /><span class="grad-text">高质量初访</span>的<span class="keep">数字销售同事。</span></h2>
+          <div class="intro-copy" data-reveal>
+            <p>它听得懂家长在说什么，也记得住每一个信息点。它会顺着对话补齐年级、科目、薄弱点、时间与决策人，在合适的时刻提出试听邀约。</p>
+            <p>挂断之后，一份可用的客户画像、一段可回听的录音、一份写给下一次通话的策略，已经准备好了。</p>
+            <div class="intro-points">
+              <div><b>不机械念稿</b><span>七态推进，先复述再追问</span></div>
+              <div><b>不打扰家长</b><span>拒绝即止，频控与静默时段强制</span></div>
+              <div><b>不丢下销售</b><span>接管、复盘、CRM 跟进一条链路</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="how">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">ONE CALL, END TO END</p>
+          <h2>从拨号到下一次跟进，<br />一条链路跑完。</h2>
+          <p>不是把几个工具拼在一起。CallMind 让每一次通话的数据，都为下一次沟通服务。</p>
+        </div>
+        <div class="flow" data-reveal>
+          <article class="flow-step">
+            <div class="flow-num">01</div>
+            <div class="flow-icon">◎</div>
+            <h3>拨号前</h3>
+            <p>CRM 线索 brief、历史跟进与话术模板进入 AI 上下文。它知道这个孩子是谁，家长在担心什么。</p>
+            <div class="flow-meta">CRM 线索 · 模板 · 场景</div>
+          </article>
+          <div class="flow-line" aria-hidden="true"></div>
+          <article class="flow-step">
+            <div class="flow-num">02</div>
+            <div class="flow-icon">◉</div>
+            <h3>通话中</h3>
+            <p>实时转写、七态推进、洞察沉淀。家长说得越多，画像越完整；需要人时，一键接管。</p>
+            <div class="flow-meta">实时 ASR · 七态 · 人工接管</div>
+          </article>
+          <div class="flow-line" aria-hidden="true"></div>
+          <article class="flow-step">
+            <div class="flow-num">03</div>
+            <div class="flow-icon">✦</div>
+            <h3>挂断后</h3>
+            <p>整通复盘、录音归档、CRM 同步，以及下一次通话的目标、开场、要点与异议应答。</p>
+            <div class="flow-meta">复盘 · 录音 · 下次策略</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section capabilities" id="capabilities">
+      <div class="shell">
+        <div class="section-head split" data-reveal>
+          <div>
+            <p class="eyebrow">BUILT FOR REAL CONVERSATIONS</p>
+            <h2>六件事，<br />让一通电话真正有用。</h2>
+          </div>
+          <p class="head-side">从语音到策略，每一层都为教育销售的真实场景设计。不是 Demo 的演示，是能落地的日常工作流。</p>
+        </div>
+        <div class="cap-grid">
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">◌</span>
+            <h3>实时语音对话</h3>
+            <p>端到端语音识别、理解与合成。自然停顿、自然回应，让家长感觉是在和一位真人顾问说话。</p>
+            <ul><li>16k 通话音频</li><li>低延迟语音回合</li><li>安静环境自动断句</li></ul>
+          </article>
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">⌁</span>
+            <h3>七态销售流程</h3>
+            <p>开场、需求确认、价值传递、异议处理、试听邀约、确认与收尾。该追问时追问，该收口时收口。</p>
+            <ul><li>状态机约束</li><li>槽位逐步补齐</li><li>敏感词与风险拦截</li></ul>
+          </article>
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">◍</span>
+            <h3>客户 360 洞察</h3>
+            <p>年级、科目、薄弱点、时间、预算、异议与意向，在对话中实时结构化，而不是事后回忆。</p>
+            <ul><li>家长原话回填</li><li>意向等级推导</li><li>客户画像持续生长</li></ul>
+          </article>
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">✦</span>
+            <h3>通话后 AI 督导</h3>
+            <p>整通复盘不只总结发生了什么，更给出下一次通话怎么打：目标、开场、要点与异议应答。</p>
+            <ul><li>家长意图识别</li><li>流失风险提示</li><li>下一次跟进日期</li></ul>
+          </article>
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">↗</span>
+            <h3>与 CRM 同一个事实源</h3>
+            <p>brief 进入对话，跟进、意向、下次时间与录音自动写回。销售看到的是一条会生长的客户时间线。</p>
+            <ul><li>通话前读线索</li><li>挂断后写跟进</li><li>录音云端归档</li></ul>
+          </article>
+          <article class="cap-card" data-reveal>
+            <span class="cap-ico">◈</span>
+            <h3>属于团队的音色</h3>
+            <p>录一段 30 秒的声音，生成多条专属音色。让 AI 不只有内容，也有你们团队自己的语气与温度。</p>
+            <ul><li>原声 / 降噪 / 均衡</li><li>试听与默认切换</li><li>录音仅用于音色生成</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section product" id="product">
+      <div class="shell">
+        <div class="section-head light split" data-reveal>
+          <div>
+            <p class="eyebrow">THE COCKPIT</p>
+            <h2>一张屏幕，<br />看清一通电话<span class="keep">正在发生什么。</span></h2>
+          </div>
+          <p class="head-side">实时转写、洞察、深度分析、接管与归档，全部在同一个界面完成。销售不需要在多个系统之间来回切换。</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="产品界面">
+          <button class="tab is-active" role="tab" aria-selected="true" data-tab="live">实时通话</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="review">通话复盘</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="queue">自动排期</button>
+        </div>
+        <div class="panel-wrap" data-reveal>
+          <div class="panel is-active" data-panel="live">
+            <div class="mock-window">
+              <div class="mock-bar"><i></i><i></i><i></i><span>CallMind · 实时通话</span></div>
+              <div class="mock-live">
+                <aside class="mock-side">
+                  <div class="mock-brand"><img src="assets/img/logo.png" alt="" /><span>CallMind</span></div>
+                  <div class="mock-nav"><span class="on">今日</span><span>客户</span><span>洞察</span><span>我的</span></div>
+                  <div class="mock-note">单路串行<br />合规前置</div>
+                </aside>
+                <div class="mock-main">
+                  <div class="mock-call-head"><span class="live-pill"><i></i>AI 实时</span><span class="stage-pill">S3 · 价值传递</span><span class="mock-timer">02:18</span></div>
+                  <div class="mock-person"><div class="avatar">李</div><div><b>李女士</b><small>初二 · 英语 · 阅读薄弱</small></div><span class="mock-badge">CRM</span></div>
+                  <div class="mock-wave"><span style="--h:40%"></span><span style="--h:74%"></span><span style="--h:52%"></span><span style="--h:88%"></span><span style="--h:64%"></span><span style="--h:96%"></span><span style="--h:48%"></span><span style="--h:76%"></span><span style="--h:56%"></span><span style="--h:84%"></span><span style="--h:44%"></span><span style="--h:68%"></span></div>
+                  <div class="mock-chat">
+                    <div class="bubble bubble-ai">阅读理解里，孩子主要是长难句看不懂，还是做题容易漏信息？</div>
+                    <div class="bubble bubble-parent">做题容易漏信息，尤其完形填空。</div>
+                    <div class="bubble bubble-ai">明白，我会把「关键词定位 + 长难句拆解」作为试听重点。周六 10:00 或周日 15:00 哪个更方便？</div>
+                  </div>
+                  <div class="mock-insights"><span>年级 初二</span><span>薄弱 阅读/完形</span><span>时间 周末</span><span>意向 B</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="review" hidden>
+            <div class="mock-window">
+              <div class="mock-bar"><i></i><i></i><i></i><span>CallMind · 通话复盘</span></div>
+              <div class="review-grid">
+                <div class="review-main">
+                  <p class="eyebrow">AI 通话复盘</p>
+                  <h3>家长认可阅读专项，但对价格仍有顾虑。</h3>
+                  <p class="review-p">本次完成初二英语阅读痛点确认与试听邀约，家长口头接受周六 10:00，未最终确认到场。下次沟通先给价值，再锁时间。</p>
+                  <div class="review-tags"><span>意向 B</span><span>风险 · 价格敏感</span><span>下次 · 周六 10:00</span></div>
+                  <div class="review-transcript"><b>关键原话</b><p>「做题容易漏信息，尤其完形填空。」</p></div>
+                </div>
+                <aside class="review-side">
+                  <div class="review-card"><span>下次目标</span><b>确认周六 10:00 到场</b></div>
+                  <div class="review-card"><span>开场</span><b>“名额已留，跟您确认一下。”</b></div>
+                  <div class="review-card"><span>异议应答</span><b>先试听，再决定。</b></div>
+                  <div class="sync-badge">✓ 已写回 CRM · 录音已归档</div>
+                </aside>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-panel="queue" hidden>
+            <div class="mock-window">
+              <div class="mock-bar"><i></i><i></i><i></i><span>CallMind · 自动排期</span></div>
+              <div class="queue-grid">
+                <div class="queue-list">
+                  <div class="queue-row"><span class="queue-time">09:30</span><div><b>王女士</b><small>初二英语 · 首访</small></div><span class="queue-status">已完成</span></div>
+                  <div class="queue-row is-next"><span class="queue-time">09:47</span><div><b>李先生</b><small>初三数学 · 试听邀约</small></div><span class="queue-status">下一通</span></div>
+                  <div class="queue-row"><span class="queue-time">10:05</span><div><b>陈女士</b><small>五年级习惯课 · 回访</small></div><span class="queue-status">待拨</span></div>
+                  <div class="queue-row"><span class="queue-time">10:21</span><div><b>周女士</b><small>初二英语 · 首访</small></div><span class="queue-status">待拨</span></div>
+                </div>
+                <div class="queue-side">
+                  <div class="switch-card"><span class="switch-ui on"></span><div><b>按排期自动拨打</b><small>每通间隔 10–20 分钟</small></div></div>
+                  <div class="queue-stat"><span>今日计划</span><b>12</b></div>
+                  <div class="queue-stat"><span>已完成</span><b>3</b></div>
+                  <p class="queue-note">自动避开静默时段；挂断后按真实结束时间顺延，保持自然沟通节奏。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="theme-strip" data-reveal>
+          <span>六种界面气质</span>
+          <div class="swatches"><i class="sw-jade"></i><i class="sw-aurora"></i><i class="sw-gold"></i><i class="sw-coral"></i><i class="sw-wx"></i><i class="sw-wxd"></i></div>
+          <small>墨玉 · 极光 · 曜金 · 赤霞 · 微信浅色 · 微信深色</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section moment">
+      <div class="shell moment-grid">
+        <div class="splash-phone" data-reveal>
+          <div class="splash-frame"><img src="assets/img/splash.jpg" alt="CallMind 品牌启动页" loading="lazy" /></div>
+          <div class="splash-glow" aria-hidden="true"></div>
+        </div>
+        <div class="moment-copy" data-reveal>
+          <p class="eyebrow">FROM THE FIRST HELLO</p>
+          <h2>专业，从接通后的<br />第一句话开始。</h2>
+          <p>AI 主动完成身份与录音告知，用自然、克制的语气建立信任。它可以被配置，但不会忘记合规。</p>
+          <ul class="check-list">
+            <li><span>✓</span>AI 身份与录音告知，开场即声明</li>
+            <li><span>✓</span>家长拒绝即停止，不做二次打扰</li>
+            <li><span>✓</span>需要人时，一键接管，AI 立即静默</li>
+          </ul>
+          <a class="text-link" href="#security">了解安全与合规 <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section voice" id="voice">
+      <div class="shell voice-grid">
+        <div class="voice-copy" data-reveal>
+          <p class="eyebrow">YOUR VOICE, YOUR TEAM</p>
+          <h2>让 AI 说话，<br />也像你们团队在说话。</h2>
+          <p>录一段约 30 秒的声音，CallMind 会生成原声、降噪与均衡三条专属音色。试听、选择默认，下一通电话就用它开口。</p>
+          <div class="voice-steps">
+            <div><b>01</b><span>读一段提示文字</span></div>
+            <div><b>02</b><span>生成三条音色</span></div>
+            <div><b>03</b><span>设为默认，立即生效</span></div>
+          </div>
+          <p class="voice-note">录音仅用于音色生成；可随时删除，云端复刻记录同步清除。</p>
+        </div>
+        <div class="voice-cards" data-reveal>
+          <article class="voice-card is-default">
+            <div class="voice-top"><span class="voice-dot"></span><b>我的音色 · 均衡</b><span class="voice-badge">默认</span></div>
+            <div class="voice-wave"><span style="--h:34%"></span><span style="--h:62%"></span><span style="--h:88%"></span><span style="--h:46%"></span><span style="--h:74%"></span><span style="--h:96%"></span><span style="--h:52%"></span><span style="--h:80%"></span><span style="--h:40%"></span><span style="--h:70%"></span><span style="--h:56%"></span><span style="--h:84%"></span></div>
+            <div class="voice-meta"><span>通话开场与回复</span><button type="button" tabindex="-1" aria-hidden="true">试听</button></div>
+          </article>
+          <article class="voice-card">
+            <div class="voice-top"><span class="voice-dot"></span><b>我的音色 · 原声</b><span class="voice-badge soft">可用</span></div>
+            <div class="voice-wave"><span style="--h:48%"></span><span style="--h:70%"></span><span style="--h:38%"></span><span style="--h:86%"></span><span style="--h:60%"></span><span style="--h:92%"></span><span style="--h:44%"></span><span style="--h:66%"></span><span style="--h:52%"></span><span style="--h:78%"></span><span style="--h:36%"></span><span style="--h:64%"></span></div>
+            <div class="voice-meta"><span>自然原声</span><button type="button" tabindex="-1" aria-hidden="true">试听</button></div>
+          </article>
+          <article class="voice-card">
+            <div class="voice-top"><span class="voice-dot"></span><b>我的音色 · 降噪</b><span class="voice-badge soft">可用</span></div>
+            <div class="voice-wave"><span style="--h:38%"></span><span style="--h:58%"></span><span style="--h:80%"></span><span style="--h:48%"></span><span style="--h:68%"></span><span style="--h:88%"></span><span style="--h:54%"></span><span style="--h:74%"></span><span style="--h:42%"></span><span style="--h:62%"></span><span style="--h:50%"></span><span style="--h:76%"></span></div>
+            <div class="voice-meta"><span>更干净的通话音色</span><button type="button" tabindex="-1" aria-hidden="true">试听</button></div>
+          </article>
+          <div class="voice-caption">录音 · 生成 · 选择默认</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section numbers">
+      <div class="shell numbers-grid">
+        <div data-reveal><b>7</b><span>对话状态</span><small>从开场到收尾</small></div>
+        <div data-reveal><b>3</b><span>复刻音色 / 次录音</span><small>原声 · 降噪 · 均衡</small></div>
+        <div data-reveal><b>6</b><span>界面主题</span><small>为不同团队气质设计</small></div>
+        <div data-reveal><b>1</b><span>CRM 事实源</span><small>线索、通话、复盘同源</small></div>
+      </div>
+    </section>
+
+    <section class="section security" id="security">
+      <div class="shell">
+        <div class="section-head split" data-reveal>
+          <div>
+            <p class="eyebrow">TRUST BY DESIGN</p>
+            <h2>先把边界想清楚，<br />再把体验做好。</h2>
+          </div>
+          <p class="head-side">AI 外呼不是无边界的自动化。CallMind 把合规闸门放在服务端，任何界面都无法绕过。</p>
+        </div>
+        <div class="sec-grid">
+          <article class="sec-card" data-reveal><span>01</span><h3>身份与录音告知</h3><p>开场主动声明 AI 身份与录音用途；可配置，但不会默认隐去。</p></article>
+          <article class="sec-card" data-reveal><span>02</span><h3>拒绝与免打扰</h3><p>家长明确拒绝或要求不再联系，立即停止邀约，进入免打扰名单。</p></article>
+          <article class="sec-card" data-reveal><span>03</span><h3>频控与静默时段</h3><p>单号日上限、小时总量、并发与静默时段，由服务端在每次拨号前校验。</p></article>
+          <article class="sec-card" data-reveal><span>04</span><h3>数据与账号边界</h3><p>企业账号登录；敏感信息可脱敏展示；录音留存与云端配置备份可管理。</p></article>
+        </div>
+        <div class="trust-note" data-reveal>
+          <p>AI 负责把家长带到「愿意了解」的那一步；信任、判断与成交，仍然属于人。CallMind 不承诺自动成交，只承诺让每一次沟通更有准备。</p>
+          <a href="privacy.html">阅读数据与隐私说明 <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="cta-mesh" aria-hidden="true"></div>
+      <div class="shell cta-inner" data-reveal>
+        <p class="eyebrow">READY WHEN YOU ARE</p>
+        <h2>让下一通电话，<br /><span>更有准备。</span></h2>
+        <p>CallMind 以企业租户方式交付。预约一次 30 分钟的产品演示，看看它如何适配你们团队的外呼流程。</p>
+        <div class="cta-actions">
+          <button class="btn btn-white btn-lg" data-open-demo>预约产品演示</button>
+          <a class="btn btn-outline-light btn-lg" href="privacy.html">了解数据与隐私</a>
+        </div>
+        <div class="cta-meta">实时对话 · CRM 写回 · 通话复盘 · 专属音色</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><img src="assets/img/logo.png" alt="" class="brand-mark" /><span class="brand-text"><b>CallMind</b><small>AI 电话智能体</small></span></a>
+        <p>为教育销售团队打造的数字课程顾问。Smarter calls, bigger growth.</p>
+      </div>
+      <div class="footer-links">
+        <div><b>产品</b><a href="#capabilities">产品能力</a><a href="#product">产品界面</a><a href="#voice">专属音色</a></div>
+        <div><b>公司</b><a href="#how">工作方式</a><a href="#security">安全合规</a><a href="privacy.html">数据与隐私</a></div>
+        <div><b>联系</b><a href="#contact">预约演示</a><a href="https://github.com/thinkbugs" rel="noopener">GitHub</a></div>
+      </div>
+    </div>
+    <div class="shell footer-bottom"><span>© <span id="year">2026</span> CallMind. All rights reserved.</span><span>Built for better conversations.</span></div>
+  </footer>
+
+  <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" hidden>
+    <div class="modal-backdrop" data-close-demo></div>
+    <div class="modal-card">
+      <button class="modal-x" aria-label="关闭" data-close-demo>×</button>
+      <p class="eyebrow">REQUEST A DEMO</p>
+      <h3 id="demoTitle">预约 CallMind 产品演示</h3>
+      <p>演示环境按企业租户开通。请把以下信息发送给您对接的 CallMind 客户经理，我们会安排一次 30 分钟演示。</p>
+      <div class="demo-template" id="demoTemplate">我想预约 CallMind 产品演示。我们的团队规模约 ___ 人，主要场景是 ___。方便的时间是 ___。</div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="copyDemo">复制预约信息</button>
+        <button class="btn btn-soft" data-close-demo>稍后再说</button>
+      </div>
+      <p class="modal-note">不收集、不上传任何信息；复制后由您自行发送。</p>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

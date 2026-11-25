@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>数据与隐私 · CallMind</title>
+  <meta name="description" content="CallMind 如何处理通话音频、录音、音色复刻与配置备份，以及我们坚持的数据边界。" />
+  <link rel="canonical" href="https://thinkbugs.github.io/privacy.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="legal-page">
+  <a class="skip" href="#main">跳到主要内容</a>
+  <div class="legal-top">
+    <div class="shell">
+      <a class="brand" href="index.html"><img src="assets/img/logo.png" alt="" class="brand-mark" /><span class="brand-text"><b>CallMind</b><small>AI 电话智能体</small></span></a>
+      <a class="back" href="index.html">← 返回官网</a>
+    </div>
+  </div>
+  <main id="main" class="legal-shell">
+    <p class="eyebrow">DATA & PRIVACY</p>
+    <h1>数据与隐私说明</h1>
+    <p class="legal-meta">更新日期：2026 年 11 月 25 日</p>
+
+    <div class="card">
+      <p>CallMind 的核心工作，是帮助教育顾问更准确地理解家长的需求，并把沟通记录整理成可跟进的客户资料。我们相信，AI 外呼的价值必须建立在明确同意、可解释和可删除的数据边界之上。</p>
+    </div>
+
+    <h2>1. 我们处理哪些数据</h2>
+    <ul>
+      <li>通话过程中的语音音频与转写文本，用于实时识别、对话理解与通话后复盘。</li>
+      <li>家长在对话中主动表达的孩子年级、科目、薄弱点、时间偏好等业务信息。</li>
+      <li>顾问账号、权限、坐席设置、话术模板、界面主题与音色偏好。</li>
+      <li>为完成音色复刻而录制的短音频样本，以及由样本生成的音色。</li>
+    </ul>
+
+    <h2>2. AI 身份与录音告知</h2>
+    <p>CallMind 支持在开场主动说明 AI 身份与录音用途；该告知由服务端 governance 配置控制，前端不可绕过。若关闭相关声明，需由使用方自行确认符合适用的外呼与录音法规。</p>
+
+    <h2>3. 录音与音色</h2>
+    <p>录音用于质检、转写与通话复盘，可按机构的留存策略保存或删除。音色样本仅用于生成复刻音色；删除音色时，本地样本与云端复刻记录会一并清理。音色复刻需要音频提供者知情并同意，不得用于冒充他人或误导接听方。</p>
+
+    <h2>4. 配置备份</h2>
+    <p>顾问可以将主题、偏好、话术模板、音色与排期设置备份到其 CRM 用户资料中，用于换机或重新登录后恢复。备份仅包含配置与音色标识，不包含通话录音、转写原文、CRM 密码或主叫号码；单个备份有大小上限。</p>
+
+    <h2>5. 安全边界</h2>
+    <ul>
+      <li>CRM 账号用于登录，密码仅用于换取会话 Token，不落盘到 CallMind 服务端配置。</li>
+      <li>敏感信息可配置脱敏展示；黑名单、免打扰、静默时段与呼叫频次由服务端闸门强制执行。</li>
+      <li>供应商与网关密钥只保存在服务端本地配置，不进入网页、客户端或代码仓库。</li>
+      <li>通话音频、录音与音色样本属于业务敏感数据，应按机构内部权限与留存制度管理。</li>
+    </ul>
+
+    <h2>6. 你的选择</h2>
+    <p>使用方可以配置是否声明 AI 身份与录音、选择号码脱敏方式、设定录音留存期限，并删除已生成的音色或配置备份。家长明确拒绝或要求不再联系时，系统会停止后续邀约。</p>
+
+    <h2>7. 联系我们</h2>
+    <p>数据与隐私相关问题，请通过您对接的 CallMind 客户经理反馈；我们会在企业租户范围内协助处理。</p>
+
+    <div class="legal-footer">
+      <span>© <span id="year">2026</span> CallMind</span>
+      <span><a href="index.html">返回官网</a></span>
+    </div>
+  </main>
+  <script>
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  </script>
+</body>
+</html>

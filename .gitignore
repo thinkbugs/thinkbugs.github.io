@@ -1,11 +1,2 @@
-.jekyll-cache
-.jekyll-metadata
-_site
-.sass-cache
-.bundle
-vendor/bundle
+shots/
 .DS_Store
-*.swp
-.idea
-.vscode/*
-!.vscode/settings.json
